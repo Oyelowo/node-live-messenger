@@ -4,16 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Oyelowo/node-live-messenger.git"
   },
+  "engines": {
+    "node": "10.8.0"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Oyelowo/node-live-messenger/issues"
   },
-  "homepage": "https://github.com/Oyelowo/node-live-messenger#readme"
+  "homepage": "https://github.com/Oyelowo/node-live-messenger#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }

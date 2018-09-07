@@ -28,11 +28,16 @@ socket.on('newMessage', function (message) {
 socket.on('newLocationMessage', function (message) {
     let li = document.createElement('li');
     let a = document.createElement('a')
-    setAttributes(a,{'target': '_blank','href': message.url})
-    a.innerText='My current location';
+    setAttributes(a, {
+        'target': '_blank',
+        'href': message.url
+    })
+    a.innerText = 'My current location';
     li.innerText = `${message.from}`
     li.appendChild(a);
-    document.getElementById('messages').appendChild(li);
+    document
+        .getElementById('messages')
+        .appendChild(li);
 });
 
 // Vanilla Javascript

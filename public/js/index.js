@@ -12,10 +12,10 @@ socket.on('disconnect', function () {
 });
 
 socket.on('newMessage', function (message) {
-    console.log('newMessage', message);
+    let formattedTime = moment(message.createdAt).format('h:mm a');
     // Vanilla Javascript
     let li = document.createElement('li');
-    li.innerText = `${message.from}: ${message.text}`;
+    li.innerText = `${message.from} ${formattedTime}: ${message.text}`;
     document
         .getElementById('messages')
         .appendChild(li);
@@ -32,7 +32,8 @@ socket.on('newLocationMessage', function (message) {
         'target': '_blank',
         'href': message.url
     })
-    a.innerText = 'My current location';
+    let formattedTime = moment(message.createdAt).format('h:mm a');
+    a.innerText = formattedTime + ' My current location ';
     li.innerText = `${message.from}`
     li.appendChild(a);
     document

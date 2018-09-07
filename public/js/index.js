@@ -45,36 +45,44 @@ let form = document.getElementById('message-form');
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    let messageTextBox = document.querySelector('[name=message]')
     socket.emit('createMessage', {
         from: 'User',
-        text: document
-            .querySelector('[name=message]')
-            .value
-    }, () => {});
-})
+        text: messageTextBox.value
+    }, () => {
+        messageTextBox.value = ''
+    });
+});
 
 // jQuery format jQuery('#message-form').on('submit', function (e) {
 // e.preventDefault(); socket.emit('createMessage', {         from: 'User',
 // text: jQuery('[name=message]').val()     }, function () {}); });
 //
 // Vanilla Javascript
+locationButton = document.querySelector('#send-location');
 let locationEvent = () => {
     if (!navigator.geolocation) {
         return alert('Geolocation not supported by your browser!');
     }
+
+    locationButton.setAttribute('disabled', 'disabled');
+    locationButton.innerText = 'Shariing location...';
+
     navigator
         .geolocation
         .getCurrentPosition((position) => {
-            console.log(position);
+            locationButton.removeAttribute('disabled');
+            locationButton.innerText = 'Share location';
             socket.emit('createLocationMessage', {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             });
         }, () => {
+            locationButton.setAttribute('disabled', 'disabled')
+            locationButton.innerText = 'Share location';
             alert('Unable to fetch location');
         })
 }
-locationButton = document.querySelector('#send-location');
 locationButton.addEventListener('click', locationEvent)
 
 // jQuery let locationButton = jQuery('#send-location'); //

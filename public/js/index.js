@@ -14,3 +14,10 @@ socket.on('disconnect', function () {
 socket.on('newMessage', function (message) {
     console.log('newMessage', message);
 });
+
+socket.emit('createMessage', {
+    from: 'Sakari',
+    text: 'Mita mene?'
+}, function (data) {
+    console.log('Gotcha! ', data);
+});

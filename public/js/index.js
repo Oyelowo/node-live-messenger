@@ -1,11 +1,37 @@
 let socket = io();
+
+function scrollToBottom() {
+    let messages = document.getElementById('messages');
+    let newMessage = messages.lastElementChild;
+    let clientHeight = messages.clientHeight
+    let scrollTop = messages.scrollTop
+    let scrollHeight = messages.scrollHeight;
+    let newMessageHeight = parseFloat(window.getComputedStyle(newMessage).height);
+    console.log('newMessageHeight', newMessageHeight);
+    // console.log(newMessage.previousElementSibling);
+
+    lastMessageHeight = newMessage.previousElementSibling
+        ? parseFloat(window.getComputedStyle(newMessage.previousElementSibling).height)
+        : 0;
+
+    console.log('lastMessageHeight', lastMessageHeight);
+
+    if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+        messages.scrollTop = scrollHeight;
+    }
+    //  let messages = $('#messages'); let newMessage =
+    // messages.children('li:last-child'); let clientHeight =
+    // messages.prop('clientHeight'); let scrollTop = messages.prop('scrollTop');
+    // let scrollHeight = messages.prop('scrollHeight'); let newMessageHeight =
+    // newMessage.innerHeight(); console.log('newMessageHeight', newMessageHeight);
+    // let lastMessageHeight = newMessage     .prev()     .innerHeight(); if
+    // (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >=
+    // scrollHeight) { messages.scrollTop(scrollHeight); }
+};
+
 socket.on('connect', function () {
     console.log('Connected to server');
 });
-
-socket.on('newMessage', function () {
-    console.log('whatsup');
-})
 
 socket.on('disconnect', function () {
     console.log('Disonnected from server');
@@ -13,52 +39,49 @@ socket.on('disconnect', function () {
 
 socket.on('newMessage', function (message) {
     let formattedTime = moment(message.createdAt).format('h:mm a');
-    let template= document.querySelector('#message-template').innerHTML;
+    let template = document
+        .querySelector('#message-template')
+        .innerHTML;
     let html = Mustache.render(template, {
         text: message.text,
         from: message.from,
         createdAt: formattedTime
     });
 
-    document.querySelector('#messages').innerHTML+=html;
-    
-    
-    // // Vanilla Javascript
-    // let li = document.createElement('li');
-    // li.innerText = `${message.from} ${formattedTime}: ${message.text}`;
-    // document
-    //     .getElementById('messages')
-    //     .appendChild(li);
+    document
+        .querySelector('#messages')
+        .innerHTML += html;
+    scrollToBottom();
 
-    // jQuery let li = $('<li></li>'); li.text(`${message.from}: ${message.text}`);
+    // // Vanilla Javascript let li = document.createElement('li'); li.innerText =
+    // `${message.from} ${formattedTime}: ${message.text}`; document
+    // .getElementById('messages')     .appendChild(li); jQuery let li =
+    // $('<li></li>'); li.text(`${message.from}: ${message.text}`);
     // $('#messages').append(li)
 
 });
 
 socket.on('newLocationMessage', function (message) {
     let formattedTime = moment(message.createdAt).format('h:mm a');
-    let template= document.querySelector('#location-message-template').innerHTML;
+    let template = document
+        .querySelector('#location-message-template')
+        .innerHTML;
     let html = Mustache.render(template, {
-       url: message.url,
+        url: message.url,
         from: message.from,
         createdAt: formattedTime
     });
 
-    document.querySelector('#messages').innerHTML+=html;
+    document
+        .querySelector('#messages')
+        .innerHTML += html;
+    scrollToBottom();
 
-    // let li = document.createElement('li');
-    // let a = document.createElement('a')
-    // setAttributes(a, {
-    //     'target': '_blank',
-    //     'href': message.url
-    // })
-    // let formattedTime = moment(message.createdAt).format('h:mm a');
-    // a.innerText = formattedTime +' My current location ';
-    // li.innerText = `${message.from}`
-    // li.appendChild(a);
-    // document
-    //     .getElementById('messages')
-    //     .appendChild(li);
+    // let li = document.createElement('li'); let a = document.createElement('a')
+    // setAttributes(a, {     'target': '_blank',     'href': message.url }) let
+    // formattedTime = moment(message.createdAt).format('h:mm a'); a.innerText =
+    // formattedTime +' My current location '; li.innerText = `${message.from}`
+    // li.appendChild(a); document     .getElementById('messages') .appendChild(li);
 });
 
 // Vanilla Javascript

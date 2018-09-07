@@ -129,8 +129,8 @@ button:disabled {
 }
 .chat__footer {
 	display: flex;
-    flex-shrink: 0;
-    /* position: absolute;
+	flex-shrink: 0;
+	/* position: absolute;
     bottom: 0;
     width: 80%; */
 }
@@ -146,9 +146,15 @@ button:disabled {
 	padding: 10px;
 	flex-grow: 1;
 }
+
+#messages {
+	list-style: none;
+}
+
 .message {
 	padding: 10px;
 }
+
 .message__title {
 	display: flex;
 	margin-bottom: 5px;

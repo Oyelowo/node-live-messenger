@@ -20,7 +20,18 @@ class Users {
     }
 
     removeUser(id) {
-        return this.users.filter(user=> user.id!==id);
+        let removed
+ 
+        this.users = this.users.filter(user => {
+          if (user.id === id) {
+            removed = user
+            return false
+          }
+          return true
+        })
+     
+        return removed
+      
     }
 
     getUser(id) {

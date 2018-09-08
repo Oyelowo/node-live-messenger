@@ -37,12 +37,16 @@ describe('Users', () => {
     });
 
     it('should remove a user', () => {
-        let newList = users.removeUser(1);
-        expect(newList).not.toEqual(users)
+        let userId= '1';
+        let user = users.removeUser(userId);
+        expect(user.id).toBe(userId);
+        expect(users.users.length).toBe(2);
     });
 
     it('should not remove a user', () => {
-        
+        let userId= '75';
+        let user = users.removeUser(userId);
+        expect(user).toBeFalsy();
     });
 
     it('should find user', () => {

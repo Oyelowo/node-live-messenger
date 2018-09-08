@@ -17,8 +17,6 @@ let users = new Users();
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-    console.log('New user connected');
-
     socket.on('join', (params, callback) => {
         if (!isRealString(params.name) || !isRealString(params.room)) {
             return callback('Name and room name are required.');
@@ -30,9 +28,7 @@ io.on('connection', (socket) => {
         io
             .to(params.room)
             .emit('updateUserList', users.getUsersList(params.room));
-        // socket.leave('The office fans'); io.emit -> io.to('The Office fans).emit
-        // socket.broadcast.emit -> socket.broatcaset.to('The Office fans).emit
-        // socket.emit
+            
 
         socket.emit('newMessage', generateMessage('Admin', 'Welcome to my Messenger'));
 
@@ -64,7 +60,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        // console.log('User was disconnected');
         let user = users.removeUser(socket.id);
         if (user) {
             io

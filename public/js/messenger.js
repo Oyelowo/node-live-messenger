@@ -102,15 +102,8 @@ socket.on('newLocationMessage', function (message) {
         .querySelector('#messages')
         .innerHTML += html;
     scrollToBottom();
-
-    // let li = document.createElement('li'); let a = document.createElement('a')
-    // setAttributes(a, {     'target': '_blank',     'href': message.url }) let
-    // formattedTime = moment(message.createdAt).format('h:mm a'); a.innerText =
-    // formattedTime +' My current location '; li.innerText = `${message.from}`
-    // li.appendChild(a); document     .getElementById('messages') .appendChild(li);
 });
 
-// Vanilla Javascript
 let form = document.getElementById('message-form');
 form.addEventListener("submit", (e) => {
     e.preventDefault();

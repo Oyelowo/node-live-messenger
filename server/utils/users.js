@@ -8,7 +8,6 @@ class Users {
         this.users = [];
     }
     addUser(id, name, room) {
-        room = room.toLowerCase();
         let user = {
             id,
             name,

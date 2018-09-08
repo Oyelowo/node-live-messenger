@@ -79,12 +79,6 @@ socket.on('newMessage', function (message) {
         .innerHTML += html;
     scrollToBottom();
 
-    // // Vanilla Javascript let li = document.createElement('li'); li.innerText =
-    // `${message.from} ${formattedTime}: ${message.text}`; document
-    // .getElementById('messages')     .appendChild(li); jQuery let li =
-    // $('<li></li>'); li.text(`${message.from}: ${message.text}`);
-    // $('#messages').append(li)
-
 });
 
 socket.on('newLocationMessage', function (message) {

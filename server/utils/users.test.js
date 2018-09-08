@@ -36,6 +36,27 @@ describe('Users', () => {
         expect(users.users).toEqual([user]);
     });
 
+    it('should remove a user', () => {
+        let newList = users.removeUser(1);
+        expect(newList).not.toEqual(users)
+    });
+
+    it('should not remove a user', () => {
+        
+    });
+
+    it('should find user', () => {
+        let userId = '2';
+        user = users.getUser(userId);
+        expect(user.id).toBe(userId);
+    });
+
+    it('should not find user', () => {
+        let userId = '54';
+        user = users.getUser(userId);
+        expect(user).toBeUndefined();
+    });
+
     it('should return names for CodeMonks room users', () => {
         let userList = users.getUsersList('CodeMonks');
         expect(userList).toEqual(['Oyelowo', 'Juka'])

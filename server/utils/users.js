@@ -20,10 +20,13 @@ class Users {
     }
 
     removeUser(id) {
-        return
+        return this.users.filter(user=> user.id!==id);
     }
 
-    getUser(id) {}
+    getUser(id) {
+        return this.users.filter(user=> user.id===id)[0];
+    }
+
 
     getUsersList(room) {
         let users = this.users.filter(user => user.room === room);

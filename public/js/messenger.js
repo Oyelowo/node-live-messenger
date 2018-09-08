@@ -45,6 +45,24 @@ socket.on('disconnect', function () {
     console.log('Disonnected from server');
 });
 
+socket.on('updateUserList', function (users) {
+    let ol = document.createElement('ol');
+    users.forEach(function (user) {
+        let li = document.createElement('li');
+        li.innerText = user;
+        ol.appendChild(li);
+
+    });
+    let usersElement = document.getElementById('users');
+    usersElement.innerHTML = '';
+    usersElement.appendChild(ol);
+
+    //
+    // jQuery format let ol = $('<ol></ol>'); users.forEach(function (user) {     ol
+    //         .append($('<li></li>'))         .text(user); });
+    // $('#users').html(ol);
+});
+
 socket.on('newMessage', function (message) {
     let formattedTime = moment(message.createdAt).format('h:mm a');
     let template = document

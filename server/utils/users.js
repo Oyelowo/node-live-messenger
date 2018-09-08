@@ -24,11 +24,11 @@ class Users {
  
         this.users = this.users.filter(user => {
           if (user.id === id) {
-            removed = user
-            return false
+            removed = user;
+            return false;
           }
-          return true
-        })
+          return true;
+        });
      
         return removed
       

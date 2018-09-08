@@ -15,7 +15,10 @@ function scrollToBottom() {
     if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
         messages.scrollTop = scrollHeight;
     }
-    //  let messages = $('#messages'); let newMessage =
+
+    // jQuery version
+    //
+    //   let messages = $('#messages'); let newMessage =
     // messages.children('li:last-child'); let clientHeight =
     // messages.prop('clientHeight'); let scrollTop = messages.prop('scrollTop');
     // let scrollHeight = messages.prop('scrollHeight'); let newMessageHeight =

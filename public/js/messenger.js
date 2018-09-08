@@ -117,7 +117,6 @@ form.addEventListener("submit", (e) => {
 
     let messageTextBox = document.querySelector('[name=message]')
     socket.emit('createMessage', {
-        from: 'User',
         text: messageTextBox.value
     }, () => {
         messageTextBox.value = ''

@@ -27,7 +27,9 @@ io.on('connection', (socket) => {
         users.removeUser(socket.id);
         users.addUser(socket.id, params.name, params.room);
 
-        io.to(params.room).emit('updateUserList', users.getUsersList(params.room));
+        io
+            .to(params.room)
+            .emit('updateUserList', users.getUsersList(params.room));
         // socket.leave('The office fans'); io.emit -> io.to('The Office fans).emit
         // socket.broadcast.emit -> socket.broatcaset.to('The Office fans).emit
         // socket.emit
@@ -43,21 +45,34 @@ io.on('connection', (socket) => {
     });
 
     socket.on('createMessage', (message, callback) => {
-        console.log('createMessage', message);
-        io.emit('newMessage', generateMessage(message.from, message.text));
+        let user = users.getUser(socket.id);
+
+        if (user && isRealString(message.text)) {
+            io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+        }
+
         callback();
     });
 
     socket.on('createLocationMessage', (coords) => {
-        io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude))
+        let user = users.getUser(socket.id);
+
+        if (user) {
+            io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
+        }
+        
     });
 
     socket.on('disconnect', () => {
         // console.log('User was disconnected');
-        let user=users.removeUser(socket.id);
-        if(user){
-            io.to(user.room).emit('updateUserList', users.getUsersList(user.room));
-            io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left`));
+        let user = users.removeUser(socket.id);
+        if (user) {
+            io
+                .to(user.room)
+                .emit('updateUserList', users.getUsersList(user.room));
+            io
+                .to(user.room)
+                .emit('newMessage', generateMessage('Admin', `${user.name} has left`));
         }
     });
 });

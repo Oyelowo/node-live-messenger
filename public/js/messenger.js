@@ -18,7 +18,8 @@ function scrollToBottom() {
 };
 
 socket.on('connect', function () {
-    let params = $.deparam(window.location.search);
+    let searchParams = new URLSearchParams(window.location.search);
+     params = {name: searchParams.get('name'), room: searchParams.get('room')};
     params.room = params.room.toLowerCase();
 
     socket.emit('join', params, function (err) {
